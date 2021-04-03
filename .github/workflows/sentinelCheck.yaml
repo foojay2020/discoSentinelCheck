@@ -20,6 +20,15 @@ jobs:
           script: |
             const core      = require('@actions/core')
             const axios     = require('axios')
+            
+            const lastState = await octokit.request('GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs', {
+              owner: 'foojay2020',
+              repo: 'discoSentinelCheck',
+              workflow_id: 'sentinelCheck.yaml'
+            }).workflow_runs[0].status
+            console.log(`last status: ${lastState})
+            
+            
             const response  = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
             const json      = response.data
             const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
