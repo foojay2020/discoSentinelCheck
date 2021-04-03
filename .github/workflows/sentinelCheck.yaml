@@ -20,7 +20,7 @@ jobs:
           script: |
             const core       = require('@actions/core')
             const axios      = require('axios')
-            const response   = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269x')
+            const response   = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
             const json       = response.data
             const available  = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
             const savedState = core.getState("state")
