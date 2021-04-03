@@ -29,7 +29,6 @@ jobs:
             const response  = await axios('https://stage.api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
             const json      = response.data
             const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
-            core.setOutput("available: ", available)
             if (available) {
               console.log(`Sentinel package available`)
             } else {
