@@ -18,37 +18,11 @@ jobs:
         with:
           required-packages: axios
           script: |
-            const core    = require('@actions/core')
-            const axios   = require('axios')
-            const https   = require('https')
-            const options = {
-              hostname: 'api.foojay.io',
-              port: 443,
-              path: '/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269',
-              method: 'GET'
-            }
-
-            const request = https.request(options, response => {
-              response.on('data', d => {
-                const json      = JSON.parse(d)
-                const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
-                if (available) {
-                  core.setOutput('Sentinel package available')
-                } else {
-                  core.setFailed('Sentinel package not available')
-                  core.setOutput('Sentinel package not available')
-                }
-              })
-            })
-
-            request.on('error', error => {
-              core.setFailed(error.message)
-              core.setOutput(error.message)
-            })
-      
-            request.end()
+            const core      = require('@actions/core')
+            const axios     = require('axios')
             
-            const resp = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
-            const av   = (resp.hasOwnProperty('id') && resp.id === 'a2a505f4d8956eb730c1ef285b23c269')
-            console.log(`available: ${av}`)
-            core.setOutput('avaiable: ', av)
+            const response  = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
+            console.log(response)
+            const available = (response.hasOwnProperty('id') && resp.id === 'a2a505f4d8956eb730c1ef285b23c269')
+            console.log(`available: ${available}`)
+            core.setOutput('available: ', available)
