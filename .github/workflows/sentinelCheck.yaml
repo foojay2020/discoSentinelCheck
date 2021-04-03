@@ -1,4 +1,13 @@
 name: SentinelCheck
+
+on:
+  push:
+    paths:
+      - '*/*/sentinelCheck.yml'
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/16 * * * *'
+
 uses: satackey/action-js-inline@release-master
 id: getdata
 with:
