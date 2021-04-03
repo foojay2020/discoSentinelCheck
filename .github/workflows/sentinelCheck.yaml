@@ -34,9 +34,9 @@ jobs:
               console.log(`Sentinel package available`)
             } else {
               if (lastState === 'failed') {
-                console.log('Update progress doesn't seem to work!!!)
+                console.log(`Update progress doesn't seem to work!!!`)
               } else {
-                console.log('Check back in 15 min, failure might be related to automatic remove of sentinel package')
+                console.log(`Check back in 15 min, failure might be related to automatic remove of sentinel package)
               }
               console.log(`Sentinel package not available`)
               core.setFailed('Sentinel package not available')
