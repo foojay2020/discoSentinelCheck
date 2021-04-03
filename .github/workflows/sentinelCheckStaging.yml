@@ -12,7 +12,7 @@ jobs:
   discotest:
     runs-on: ubuntu-18.04
     steps:
-      - name: sentinelCheck
+      - name: sentinelCheckStaging
         uses: satackey/action-js-inline@v0.0.2
         id: getdata
         with:
