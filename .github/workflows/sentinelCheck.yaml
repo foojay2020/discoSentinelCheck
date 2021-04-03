@@ -19,7 +19,7 @@ jobs:
           required-packages: axios
           script: |
             const core    = require('@actions/core')
-            const axios   = rquire('axios')
+            const axios   = require('axios')
             const https   = require('https')
             const options = {
               hostname: 'api.foojay.io',
