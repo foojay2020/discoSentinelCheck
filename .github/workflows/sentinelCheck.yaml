@@ -13,11 +13,13 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: sentinelCheck
-        uses: satackey/action-js-inline@release-master
+        uses: satackey/action-js-inline@v0.0.2
         id: getdata
         with:
+          required-packages: axios
           script: |
             const core    = require('@actions/core')
+            const axios   = rquire('axios')
             const https   = require('https')
             const options = {
               hostname: 'api.foojay.io',
@@ -45,3 +47,8 @@ jobs:
             })
       
             request.end()
+            
+            const resp = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
+            const av   = (resp.hasOwnProperty('id') && resp.id === 'a2a505f4d8956eb730c1ef285b23c269')
+            console.log(`available: ${av}`)
+            core.setOutput('avaiable: ', av)
