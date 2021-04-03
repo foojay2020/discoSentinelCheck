@@ -6,7 +6,7 @@ on:
       - '*/*/sentinelCheck.yml'
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '*/16 * * * *'
+    - cron:  '15 */3 * * *'
 
 jobs:
   discotest:
