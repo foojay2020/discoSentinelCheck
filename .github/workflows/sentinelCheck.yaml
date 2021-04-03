@@ -21,7 +21,7 @@ jobs:
             const core      = require('@actions/core')
             const axios     = require('axios')
             
-            const resp = await axios('https://api.github.com/repos/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheck/runs')
+            const resp = await axios('https://api.github.com/repos/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheck.yaml/runs')
             const respJson = resp.data
             const lastState = respJson.workflow_runs[0].status
             console.log(`last status: ${lastState}`)
