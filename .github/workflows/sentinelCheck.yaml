@@ -23,8 +23,8 @@
           console.log('Sentinel package available: ' + available)
           if (!available) {
             core.setFailed('Sentinel package not available')
-    	  }
-        });
+          }
+        })
       })
 
       request.on('error', error => {
