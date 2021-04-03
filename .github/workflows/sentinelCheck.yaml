@@ -23,9 +23,9 @@ jobs:
             
             const resp      = await axios('https://api.github.com/repos/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheck.yaml/runs')
             const respJson  = resp.data
-            const lastState = respJson.workflow_runs[0].conclusion
+            const lastState = respJson.workflow_runs[0].status
             console.log(`last status: ${lastState}`)
-
+                        
             const response  = await axios('https://api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269')
             const json      = response.data
             const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
@@ -33,6 +33,11 @@ jobs:
             if (available) {
               console.log(`Sentinel package available`)
             } else {
+              if (lastState === 'failed') {
+                console.log('Update progress doesn't seem to work!!!)
+              } else {
+                console.log('Check back in 15 min, failure might be related to automatic remove of sentinel package')
+              }
               console.log(`Sentinel package not available`)
               core.setFailed('Sentinel package not available')
             }
