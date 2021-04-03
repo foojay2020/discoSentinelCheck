@@ -29,6 +29,7 @@ jobs:
             core.setOutput('available: ', available)
             if (available) {
               core.saveState("state", 0)
+              core.setFailed('Failed')
             } else {
               core.saveState("state", 1)
               core.setFailed('Sentinel package not available')
