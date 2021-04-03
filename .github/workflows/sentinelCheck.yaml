@@ -31,7 +31,5 @@
         console.error('Error: ', error.message)
         core.setFailed(error.message)
       })
-
-    request.end()
-
-# You can use datas as ${{ steps.getdata.outputs.branch }} and ${{ steps.getdata.outputs.date }}
+      
+      request.end()
