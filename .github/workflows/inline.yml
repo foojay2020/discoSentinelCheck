@@ -6,7 +6,7 @@ on:
       - '*/*/inline.yaml'
 
 jobs:
-  discotest:
+  inline:
     runs-on: ubuntu-18.04
     steps:
       - name: Output current branch name & date
