@@ -26,7 +26,7 @@ jobs:
             const savedState = core.getState("state")
             console.log(`saved state: ${savedState}`)
             console.log(`available: ${available}`)
-            core.setOutput('available: ', available)
+            core.setOutput("available: "", available)
             if (available) {
               core.saveState("state", 0)
             } else {
