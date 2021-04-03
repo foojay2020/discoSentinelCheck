@@ -10,6 +10,7 @@ on:
 
 jobs:
   discotest:
+    runs-on: ubuntu-18.04
     steps:
       - name: sentinelCheck
         uses: satackey/action-js-inline@release-master
