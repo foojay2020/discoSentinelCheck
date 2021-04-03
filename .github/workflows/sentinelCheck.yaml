@@ -1,0 +1,37 @@
+- name: SentinelCheck
+  # To use latest action, specify "release-master" instead of "v0.0.2"
+  uses: satackey/action-js-inline@v0.0.2
+  id: getdata
+  with:
+    # Edit the following line to install packages required to run your script.
+    #required-packages: axios
+    script: |
+      const core = require('@actions/core')
+      #const axios = require('axios')
+      const https   = require('https')
+      const options = {
+        hostname: 'api.foojay.io',
+        port: 443,
+        path: '/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269',
+        method: 'GET'
+      }
+
+      const request = https.request(options, response => {
+        response.on('data', d => {
+          const json      = JSON.parse(d)
+          const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
+          console.log('Sentinel package available: ' + available)
+          if (!available) {
+            core.setFailed('Sentinel package not available')
+    	  }
+        });
+      })
+
+      request.on('error', error => {
+        console.error('Error: ', error.message)
+        core.setFailed(error.message)
+      })
+
+    request.end()
+
+# You can use datas as ${{ steps.getdata.outputs.branch }} and ${{ steps.getdata.outputs.date }}
