@@ -21,7 +21,7 @@ jobs:
             const core      = require('@actions/core')
             const axios     = require('axios')
             
-            const resp      = await axios('https://api.github.com/repos/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheckStaging.yaml/runs')
+            const resp      = await axios('https://api.github.com/repos/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheckStaging.yaml/runs?timestamp=${new Date().getTime()}')
             const respJson  = resp.data
             const lastState = respJson.workflow_runs[0].status
             console.log(`last status: ${lastState}`)
@@ -32,11 +32,14 @@ jobs:
             if (available) {
               console.log(`Sentinel package available`)
             } else {
+              var msg = 'Sentinel package not found'
               if (lastState === 'failed') {
-                console.log('Update progress not working!!!')
+                //console.log('Update progress not working!!!')
+                msg = 'Sentinel package not found (Update is not working!!!)'
               } else {
-                console.log('Check back in 15 min, failure might be related to automatic remove of sentinel package')
+                //console.log('Check back in 15 min, failure might be related to automatic remove of sentinel package')
+                msg = 'Sentinel package not found (Check back in 15min)'
               }
-              console.log(`Sentinel package not available`)
-              core.setFailed('Sentinel package not available')
+              //console.log(`Sentinel package not found`)
+              core.setFailed(msg)
             }
