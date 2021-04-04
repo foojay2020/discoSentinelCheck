@@ -25,8 +25,9 @@ jobs:
             const respJson  = resp.data
             const lastState = respJson.workflow_runs[0].status
             console.log(`last status: ${lastState}`)
-                        
-            const response  = await axios('https://stage.api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269&timestamp=${new Date().getTime()}')
+            
+            const timestamp = new Date().getTime()                
+            const response  = await axios('https://stage.api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269&timestamp=' + timestamp)
             const json      = response.data
             const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
             if (available) {
