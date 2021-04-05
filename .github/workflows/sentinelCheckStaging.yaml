@@ -1,0 +1,33 @@
+name: SentinelCheckStaging
+
+on:
+  push:
+    paths:
+      - '*/*/sentinelCheckStaging.yaml'
+  schedule:
+    # * is a special character in YAML so you have to quote this string 
+    - cron: '2-59/32 * * * *'
+
+jobs:
+  discotest:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: sentinelCheckStaging
+        uses: satackey/action-js-inline@v0.0.2
+        id: getdata
+        with:
+          required-packages: request
+          script: |
+            const core = require('@actions/core')
+            const req  = require('request')
+            
+            req('https://stage.api.foojay.io/disco/v1.0/packages/a2a505f4d8956eb730c1ef285b23c269', { json: true }, (err, res, body) => {
+              if (err) { return console.log(err); }
+              const json      = body
+              const available = (json.hasOwnProperty('id') && json.id === 'a2a505f4d8956eb730c1ef285b23c269')
+              if (available) {
+                console.log(`Sentinel package available`)
+              } else {              
+                core.setFailed(`Sentinel package not found`)
+              }
+            })
