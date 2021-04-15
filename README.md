@@ -8,5 +8,4 @@
 ### Staging
 [![SentinelCheckStaging](https://github.com/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheckStaging.yaml/badge.svg)](https://github.com/foojay2020/discoSentinelCheck/actions/workflows/sentinelCheckStaging.yaml)
 
-### Staging
 [![UpdatesOnStaging](https://github.com/foojay2020/discoSentinelCheck/actions/workflows/updateOnStaging.yaml/badge.svg)](https://github.com/foojay2020/discoSentinelCheck/actions/workflows/updateOnStaging.yaml)
