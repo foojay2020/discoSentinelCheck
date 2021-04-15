@@ -1,0 +1,35 @@
+name: UpdatesOnStaging
+
+on:
+  push:
+    paths:
+      - '*/*/sentinelCheckStaging.yaml'
+  schedule:
+    # * is a special character in YAML so you have to quote this string 
+    - cron: '0-59/5 * * * *'
+
+jobs:
+  discotest:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: UpdateOnStaging
+        uses: satackey/action-js-inline@v0.0.2
+        id: getdata
+        with:
+          required-packages: request
+          script: |
+            const core = require('@actions/core')
+            const req  = require('request')
+            
+            req('https://stage.api.foojay.io/disco/v2.0/fitness', { json: true }, (err, res, body) => {
+              if (err) { core.setFailed(`Error checking for last update`) }
+              const json      = body
+              if (json.hasOwnProperty('result')) {
+                const minSinceLastZuluUpdateFinished = json.result[0].min_since_last_zulu_update_finished
+                if (minSinceLastZuluUpdateFinished > 60) {
+                  core.setFailed(`No update for more than 60 minutes`)
+                } else {
+                  core.log(`Update procedure is running`)  
+                }
+              }
+            })
