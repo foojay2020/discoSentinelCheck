@@ -25,8 +25,8 @@ jobs:
               if (err) { core.setFailed(`Error checking for last update`) }
               const json      = body
               if (json.hasOwnProperty('result')) {
-                const minSinceLastZuluUpdateFinished = json.result[0].min_since_last_zulu_update_finished
-                if (minSinceLastZuluUpdateFinished > 60) {
+                const minutesSinceLastZuluUpdate = json.result[0].min_since_last_zulu_update
+                if (minutesSinceLastZuluUpdate > 60) {
                   core.setFailed(`No update for more than 60 minutes`)
                 } else {
                   core.log(`Update procedure is running`)  
