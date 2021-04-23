@@ -1,4 +1,4 @@
-name: Update
+name: Updates
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
   discotest:
     runs-on: ubuntu-18.04
     steps:
-      - name: Update
+      - name: Updates
         uses: satackey/action-js-inline@v0.0.2
         id: getdata
         with:
