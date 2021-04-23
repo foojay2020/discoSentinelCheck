@@ -1,0 +1,35 @@
+name: Update
+
+on:
+  push:
+    paths:
+      - '*/*/sentinelCheck.yaml'
+  schedule:
+    # * is a special character in YAML so you have to quote this string 
+    - cron: '0-59/10 * * * *'
+
+jobs:
+  discotest:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Update
+        uses: satackey/action-js-inline@v0.0.2
+        id: getdata
+        with:
+          required-packages: request
+          script: |
+            const core = require('@actions/core')
+            const req  = require('request')
+            
+            req('https://api.foojay.io/disco/v2.0/fitness', { json: true }, (err, res, body) => {
+              if (err) { core.setFailed(`Error checking for last update`) }
+              const json = body
+              if (json.hasOwnProperty('result')) {
+                const minutesSinceLastZuluUpdate = json.result[0].min_since_last_zulu_update
+                if (minutesSinceLastZuluUpdate > 60) {
+                  core.setFailed(`No update for more than 60 minutes`)
+                } else {
+                  console.log(`Update procedure is running`)  
+                }
+              }
+            })
